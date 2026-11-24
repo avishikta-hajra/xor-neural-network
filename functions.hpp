@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <stdexcept>
 #include "matrix.hpp"
 
 inline float sigmoid_forward(float x)
@@ -28,4 +29,18 @@ inline float loss_func_sse(const Matrix &output, const Matrix &train) // Sum of 
     }
 
     return res;
+}
+
+inline void gradient_descent(Matrix &W, const Matrix &dW, float alpha) // updating wts based on numerical gradients
+{
+    size_t r = W.get_rows();
+    size_t c = W.get_cols();
+
+    for (size_t i = 0; i < r; ++i)
+    {
+        for (size_t j = 0; j < c; ++j)
+        {
+            W(i, j) -= alpha * dW(i, j);
+        }
+    }
 }

@@ -127,22 +127,8 @@ int main()
 
         // GRADIENT DESCENT for updating wts
         float alpha = 1e-2; // learning rate or step size
-
-        for (size_t i = 0; i < r_W0; ++i)
-        {
-            for (size_t j = 0; j < c_W0; ++j)
-            {
-                W0(i, j) -= (alpha * dW0(i, j));
-            }
-        }
-
-        for (size_t i = 0; i < r_W1; ++i)
-        {
-            for (size_t j = 0; j < c_W1; ++j)
-            {
-                W1(i, j) -= (alpha * dW1(i, j));
-            }
-        }
+        gradient_descent(W0, dW0, alpha);
+        gradient_descent(W1, dW1, alpha);
     }
 
     A2.print_matrix();      // output of neural network
