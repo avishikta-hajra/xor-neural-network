@@ -7,8 +7,6 @@
 #include <initializer_list>
 #include <random>
 
-#include "functions.hpp"
-
 class Matrix
 {
 private:
