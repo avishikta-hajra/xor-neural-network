@@ -7,6 +7,8 @@
 #include <initializer_list>
 #include <random>
 
+#include "functions.hpp"
+
 class Matrix
 {
 private:
@@ -137,14 +139,29 @@ public:
     // Matrix copy -> later to be implemented as batch sizes if required
     friend void matrix_copy(Matrix &dest, const Matrix &src)
     {
-        int r = src.rows;
-        int c = src.cols;
+        size_t r = src.rows;
+        size_t c = src.cols;
 
         for (size_t i = 0; i < r; ++i)
         {
             for (size_t j = 0; j < c; ++j)
             {
                 dest(i, j) = src(i, j);
+            }
+        }
+    }
+
+    // Application of activation function over the matrix
+    friend void matrix_activation(Matrix &dest, const Matrix &src, float (*activation_func)(float))
+    {
+        size_t r = src.rows;
+        size_t c = src.cols;
+
+        for (size_t i = 0; i < r; ++i)
+        {
+            for (size_t j = 0; j < c; ++j)
+            {
+                dest(i, j) = activation_func(src(i, j));
             }
         }
     }

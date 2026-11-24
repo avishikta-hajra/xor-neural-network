@@ -50,6 +50,14 @@ int main()
 
     Z0 = matrix_mul(A0, W0);
 
-    Z0.print_matrix();
+    matrix_activation(A1, Z0, sigmoid_forward);
+    A1.print_matrix();
+
+    Z1 = matrix_mul(A1, W1);
+    matrix_activation(A2, Z1, sigmoid_forward);
+
+    // Z0.print_matrix();
+    // Z1.print_matrix();
+    A2.print_matrix();
     return 0;
 }
