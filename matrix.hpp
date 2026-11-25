@@ -163,4 +163,21 @@ public:
             }
         }
     }
+
+    // Transpose of matrix
+    friend Matrix matrix_transpose(const Matrix &m)
+    {
+        int r = m.rows;
+        int c = m.cols;
+        Matrix mt(c, r);
+
+        for (size_t i = 0; i < r; ++i)
+        {
+            for (size_t j = 0; j < c; ++j)
+            {
+                mt(j, i) = m(i, j);
+            }
+        }
+        return mt;
+    }
 };
