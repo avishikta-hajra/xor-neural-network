@@ -2,7 +2,12 @@
 #include "matrix.hpp"
 #include "functions.hpp"
 
-#define EPOCHS 100000
+constexpr int EPOCHS = 100000;
+constexpr size_t BATCH_SIZE = 4;
+constexpr size_t LAYER_0 = 2;
+constexpr size_t LAYER_1 = 2;
+constexpr size_t LAYER_2 = 1;
+constexpr size_t BIAS = 1;
 
 int main()
 {
@@ -22,26 +27,29 @@ int main()
     // train_x.print_matrix();
     // train_y.print_matrix();
 
-    // Matrix Initialisation -> A : 4x3 (values initialised to 1.0f so that bias are also 1), W : 3X2, Z : 4X2 (values initialised to 0.0f)
+    // MATRIX INITIALISATION
+
+    // A0 : 4x3 (values initialised to 1.0f so that bias are also 1), W0 : 3X2, Z0 : 4X2 (initialised to 0.0f)
+    // A1 : 4x3, W1 : 3X1, Z1 : 4X1, A2 : 4X1
     // 3x3x1 | Input & Hidden Layer has 3 neurons : 2 for input/activation, 1 for bias | Output Layer has 1 neuron
 
     // Training data is stored as row-major, so each row denotes a set of training data and the columns represent parameters
 
     // Layer 0 (Input) -> Hidden Layer
-    Matrix A0(4, 3, 1);
-    Matrix W0(3, 2);
-    Matrix Z0(4, 2);
+    Matrix A0(BATCH_SIZE, (LAYER_0 + BIAS), 1);
+    Matrix W0((LAYER_0 + BIAS), LAYER_1);
+    Matrix Z0(BATCH_SIZE, LAYER_1);
 
     // Hidden Layer -> Output Layer
-    Matrix A1(4, 3, 1);
-    Matrix W1(3, 1);
-    Matrix Z1(4, 1);
+    Matrix A1(BATCH_SIZE, (LAYER_1 + BIAS), 1);
+    Matrix W1((LAYER_1 + BIAS), LAYER_2);
+    Matrix Z1(BATCH_SIZE, LAYER_2);
 
-    Matrix A2(4, 1); // Output Layer
+    Matrix A2(BATCH_SIZE, LAYER_2); // Output Layer
 
     // for the gradient
-    Matrix dW0(3, 2);
-    Matrix dW1(3, 1);
+    Matrix dW0((LAYER_0 + BIAS), LAYER_1);
+    Matrix dW1(BATCH_SIZE, LAYER_1);
 
     // Weight Initialisation (Random)
     W0.randomise();
@@ -49,7 +57,7 @@ int main()
     // W0.print_matrix();
     // W1.print_matrix();
 
-    // A0 initialisation (bias col remains 1) -> setting the input
+    // A0 initialisation (bias col remains 1) -> SETTING THE INPUT
     matrix_copy(A0, train_x);
     // A0.print_matrix();
 
@@ -75,7 +83,7 @@ int main()
             std::cout << loss << "\n";
 
         // NUMERICAL GRADIENTS -> each wt by wt
-        float eps = 1e-4; // change in wt
+        float eps = 1e-4f; // change in wt
 
         size_t r_W0 = W0.get_rows();
         size_t c_W0 = W0.get_cols();
@@ -126,7 +134,7 @@ int main()
         }
 
         // GRADIENT DESCENT for updating wts
-        float alpha = 1e-2; // learning rate or step size
+        float alpha = 1e-2f; // learning rate or step size
         gradient_descent(W0, dW0, alpha);
         gradient_descent(W1, dW1, alpha);
     }
