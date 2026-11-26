@@ -2,8 +2,6 @@
 
 A zero-dependency, lightweight neural network built from scratch in pure C++ to solve the non-linear XOR problem. This codebase implements a custom header-only row-major `Matrix` engine, forward propagation with Sigmoid activations, Sum of Squared Errors (SSE) loss, and training via **numerical gradients (finite differences)** and gradient descent.
 
-![XOR Neural Network Architecture](xor_nn_diagram.svg)
-
 ---
 
 ## 1. Why XOR ?
