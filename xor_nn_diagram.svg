@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="960" height="470" font-family="'Chalkboard SE', 'Bradley Hand', 'Segoe Print', 'Comic Sans MS', cursive, sans-serif">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arrow-chalk" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#e2e8f0"/>
+    </marker>
+    <marker id="arrow-bias" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#fbbf24"/>
+    </marker>
+    <marker id="arrow-out" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#6ee7b7"/>
+    </marker>
+  </defs>
+
+  <!-- Chalkboard Background -->
+  <rect x="0" y="0" width="960" height="470" rx="18" fill="#14171c"/>
+  <rect x="2" y="2" width="956" height="466" rx="16" fill="none" stroke="#2d333b" stroke-width="2.5"/>
+
+  <!-- Layer Headers -->
+  <text x="165" y="48" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="700">Input Layer</text>
+  <text x="165" y="72" text-anchor="middle" fill="#94a3b8" font-size="14">(Layer 0 : A<tspan baseline-shift="sub" font-size="11">0</tspan>)</text>
+
+  <text x="505" y="48" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="700">Hidden Layer</text>
+  <text x="505" y="72" text-anchor="middle" fill="#94a3b8" font-size="14">(Layer 1 : A<tspan baseline-shift="sub" font-size="11">1</tspan>)</text>
+
+  <text x="815" y="48" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="700">Output Layer</text>
+  <text x="815" y="72" text-anchor="middle" fill="#94a3b8" font-size="14">(Layer 2 : A<tspan baseline-shift="sub" font-size="11">2</tspan>)</text>
+
+  <!-- Input Arrows (x0, x1) -->
+  <text x="64" y="152" text-anchor="middle" fill="#f8fafc" font-size="22">x<tspan baseline-shift="super" font-size="14">0</tspan></text>
+  <line x1="86" y1="145" x2="124" y2="145" stroke="#e2e8f0" stroke-width="2.2" marker-end="url(#arrow-chalk)"/>
+
+  <text x="64" y="272" text-anchor="middle" fill="#f8fafc" font-size="22">x<tspan baseline-shift="super" font-size="14">1</tspan></text>
+  <line x1="86" y1="265" x2="124" y2="265" stroke="#e2e8f0" stroke-width="2.2" marker-end="url(#arrow-chalk)"/>
+
+  <!-- Bias Labels -->
+  <text x="95" y="391" text-anchor="middle" fill="#fbbf24" font-size="17">bias</text>
+  <text x="435" y="391" text-anchor="middle" fill="#fbbf24" font-size="17">bias</text>
+
+  <!-- Connections: Layer 0 -> Layer 1 (W0) -->
+  <g stroke="#e2e8f0" stroke-width="2" fill="none">
+    <!-- a0,0 -> a1,0 -->
+    <line x1="201" y1="145" x2="465" y2="145" marker-end="url(#arrow-chalk)"/>
+    <!-- a0,0 -> a1,1 -->
+    <line x1="199" y1="157" x2="467" y2="253" marker-end="url(#arrow-chalk)"/>
+    <!-- a0,1 -> a1,0 -->
+    <line x1="199" y1="253" x2="467" y2="157" marker-end="url(#arrow-chalk)"/>
+    <!-- a0,1 -> a1,1 -->
+    <line x1="201" y1="265" x2="465" y2="265" marker-end="url(#arrow-chalk)"/>
+  </g>
+
+  <!-- Bias Connections: Layer 0 -> Layer 1 -->
+  <g stroke="#fbbf24" stroke-width="2" stroke-dasharray="7,5" fill="none">
+    <!-- bias 0 -> a1,0 -->
+    <line x1="196" y1="366" x2="470" y2="167" marker-end="url(#arrow-bias)"/>
+    <!-- bias 0 -> a1,1 -->
+    <line x1="199" y1="374" x2="467" y2="277" marker-end="url(#arrow-bias)"/>
+  </g>
+
+  <!-- Connections: Layer 1 -> Layer 2 (W1) -->
+  <g stroke="#e2e8f0" stroke-width="2" fill="none">
+    <!-- a1,0 -> a2,0 -->
+    <line x1="541" y1="152" x2="775" y2="198" marker-end="url(#arrow-chalk)"/>
+    <!-- a1,1 -> a2,0 -->
+    <line x1="541" y1="258" x2="775" y2="212" marker-end="url(#arrow-chalk)"/>
+  </g>
+
+  <!-- Bias Connection: Layer 1 -> Layer 2 -->
+  <g stroke="#fbbf24" stroke-width="2" stroke-dasharray="7,5" fill="none">
+    <line x1="538" y1="369" x2="778" y2="225" marker-end="url(#arrow-bias)"/>
+  </g>
+
+  <!-- Weight Labels: W0 (with clean dark backing pills for readability) -->
+  <!-- w0(0,0) -->
+  <rect x="296" y="114" width="68" height="24" rx="6" fill="#14171c" opacity="0.9"/>
+  <text x="330" y="132" text-anchor="middle" fill="#a7f3d0" font-size="16">w<tspan baseline-shift="sub" font-size="11">0</tspan><tspan baseline-shift="super" font-size="11">(0,0)</tspan></text>
+
+  <!-- w0(0,1) -->
+  <rect x="234" y="160" width="68" height="24" rx="6" fill="#14171c" opacity="0.9"/>
+  <text x="268" y="178" text-anchor="middle" fill="#a7f3d0" font-size="16">w<tspan baseline-shift="sub" font-size="11">0</tspan><tspan baseline-shift="super" font-size="11">(0,1)</tspan></text>
+
+  <!-- w0(1,0) -->
+  <rect x="234" y="219" width="68" height="24" rx="6" fill="#14171c" opacity="0.9"/>
+  <text x="268" y="237" text-anchor="middle" fill="#93c5fd" font-size="16">w<tspan baseline-shift="sub" font-size="11">0</tspan><tspan baseline-shift="super" font-size="11">(1,0)</tspan></text>
+
+  <!-- w0(1,1) -->
+  <rect x="296" y="271" width="68" height="24" rx="6" fill="#14171c" opacity="0.9"/>
+  <text x="330" y="289" text-anchor="middle" fill="#93c5fd" font-size="16">w<tspan baseline-shift="sub" font-size="11">0</tspan><tspan baseline-shift="super" font-size="11">(1,1)</tspan></text>
+
+  <!-- b0,0 (w0(2,0)) -->
+  <rect x="218" y="314" width="44" height="22" rx="5" fill="#14171c" opacity="0.92"/>
+  <text x="240" y="330" text-anchor="middle" fill="#fbbf24" font-size="16">b<tspan baseline-shift="sub" font-size="11">0</tspan><tspan baseline-shift="super" font-size="11">(2,0)</tspan></text>
+
+  <!-- b0,1 (w0(2,1)) -->
+  <rect x="338" y="330" width="44" height="22" rx="5" fill="#14171c" opacity="0.92"/>
+  <text x="360" y="346" text-anchor="middle" fill="#fbbf24" font-size="16">b<tspan baseline-shift="sub" font-size="11">0</tspan><tspan baseline-shift="super" font-size="11">(2,1)</tspan></text>
+
+  <!-- Weight Labels: W1 -->
+  <!-- w1(0,0) -->
+  <rect x="626" y="143" width="68" height="24" rx="6" fill="#14171c" opacity="0.9"/>
+  <text x="660" y="161" text-anchor="middle" fill="#fde047" font-size="16">w<tspan baseline-shift="sub" font-size="11">1</tspan><tspan baseline-shift="super" font-size="11">(0,0)</tspan></text>
+
+  <!-- w1(1,0) -->
+  <rect x="626" y="241" width="68" height="24" rx="6" fill="#14171c" opacity="0.9"/>
+  <text x="660" y="259" text-anchor="middle" fill="#fde047" font-size="16">w<tspan baseline-shift="sub" font-size="11">1</tspan><tspan baseline-shift="super" font-size="11">(1,0)</tspan></text>
+
+  <!-- b1,0 (w1(2,0)) -->
+  <rect x="650" y="303" width="44" height="22" rx="5" fill="#14171c" opacity="0.92"/>
+  <text x="672" y="319" text-anchor="middle" fill="#fbbf24" font-size="16">b<tspan baseline-shift="sub" font-size="11">1</tspan><tspan baseline-shift="super" font-size="11">(2,0)</tspan></text>
+
+  <!-- Pre-activation Labels (z) -->
+  <text x="455" y="116" text-anchor="middle" fill="#38bdf8" font-size="17">z<tspan baseline-shift="sub" font-size="12">0,0</tspan></text>
+  <text x="455" y="236" text-anchor="middle" fill="#38bdf8" font-size="17">z<tspan baseline-shift="sub" font-size="12">0,1</tspan></text>
+  <text x="765" y="174" text-anchor="middle" fill="#38bdf8" font-size="17">z<tspan baseline-shift="sub" font-size="12">1,0</tspan></text>
+
+  <!-- Input Layer Nodes (Hand-drawn double-ring chalk style) -->
+  <g>
+    <!-- a0,0 -->
+    <circle cx="165" cy="145" r="32" fill="#162536" stroke="#38bdf8" stroke-width="2.6"/>
+    <circle cx="166" cy="144" r="34" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.55"/>
+    <text x="165" y="152" text-anchor="middle" fill="#f8fafc" font-size="21">a<tspan baseline-shift="sub" font-size="13">0</tspan><tspan baseline-shift="super" font-size="11">0</tspan></text>
+
+    <!-- a0,1 -->
+    <circle cx="165" cy="265" r="32" fill="#162536" stroke="#38bdf8" stroke-width="2.6"/>
+    <circle cx="164" cy="266" r="34" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.55"/>
+    <text x="165" y="272" text-anchor="middle" fill="#f8fafc" font-size="21">a<tspan baseline-shift="sub" font-size="13">0</tspan><tspan baseline-shift="super" font-size="11">1</tspan></text>
+
+    <!-- Bias 0: 1 -->
+    <circle cx="165" cy="385" r="30" fill="#2e2111" stroke="#fbbf24" stroke-width="2.6"/>
+    <circle cx="166" cy="384" r="32" fill="none" stroke="#fbbf24" stroke-width="1.2" opacity="0.55"/>
+    <text x="165" y="393" text-anchor="middle" fill="#fef3c7" font-size="24" font-weight="700">1</text>
+  </g>
+
+  <!-- Hidden Layer Nodes -->
+  <g>
+    <!-- a1,0 -->
+    <circle cx="505" cy="145" r="32" fill="#2b2612" stroke="#facc15" stroke-width="2.6"/>
+    <circle cx="504" cy="146" r="34" fill="none" stroke="#facc15" stroke-width="1.2" opacity="0.55"/>
+    <text x="505" y="152" text-anchor="middle" fill="#f8fafc" font-size="21">a<tspan baseline-shift="sub" font-size="13">1</tspan><tspan baseline-shift="super" font-size="11">0</tspan></text>
+
+    <!-- a1,1 -->
+    <circle cx="505" cy="265" r="32" fill="#2b2612" stroke="#facc15" stroke-width="2.6"/>
+    <circle cx="506" cy="264" r="34" fill="none" stroke="#facc15" stroke-width="1.2" opacity="0.55"/>
+    <text x="505" y="272" text-anchor="middle" fill="#f8fafc" font-size="21">a<tspan baseline-shift="sub" font-size="13">1</tspan><tspan baseline-shift="super" font-size="11">1</tspan></text>
+
+    <!-- Bias 1: 1 -->
+    <circle cx="505" cy="385" r="30" fill="#2e2111" stroke="#fbbf24" stroke-width="2.6"/>
+    <circle cx="504" cy="386" r="32" fill="none" stroke="#fbbf24" stroke-width="1.2" opacity="0.55"/>
+    <text x="505" y="393" text-anchor="middle" fill="#fef3c7" font-size="24" font-weight="700">1</text>
+  </g>
+
+  <!-- Output Layer Node -->
+  <g>
+    <!-- a2,0 -->
+    <circle cx="815" cy="205" r="34" fill="#132e26" stroke="#34d399" stroke-width="2.8"/>
+    <circle cx="816" cy="204" r="36" fill="none" stroke="#34d399" stroke-width="1.2" opacity="0.55"/>
+    <text x="815" y="212" text-anchor="middle" fill="#f8fafc" font-size="21">a<tspan baseline-shift="sub" font-size="13">2</tspan><tspan baseline-shift="super" font-size="11">0</tspan></text>
+
+    <!-- Output Arrow -> y -->
+    <line x1="853" y1="205" x2="896" y2="205" stroke="#6ee7b7" stroke-width="2.6" marker-end="url(#arrow-out)"/>
+    <text x="918" y="212" text-anchor="middle" fill="#f8fafc" font-size="25" font-weight="700">y</text>
+  </g>
+</svg>
