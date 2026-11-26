@@ -63,24 +63,26 @@ $$a_2^0 = \sigma(z_{1,0}) = y$$
 Stacking all 4 XOR inputs as **rows** in $A_0$ and placing biases in the **last row** of $W_0$ and $W_1$ computes all 4 samples in one multiplication:
 
 **Layer 0 $\rightarrow$ Layer 1 ($A_0 \cdot W_0 = Z_0$):**
-$$
+
+```math
 \underbrace{\begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 1 \\ 1 & 0 & 1 \\ 1 & 1 & 1 \end{bmatrix}}_{A_0\;(4 \times 3)}
 \cdot
 \underbrace{\begin{bmatrix} w_0^{(0,0)} & w_0^{(0,1)} \\ w_0^{(1,0)} & w_0^{(1,1)} \\ b_0^{(2,0)} & b_0^{(2,1)} \end{bmatrix}}_{W_0\;(3 \times 2)}
 =
 \underbrace{\begin{bmatrix} z_{0,0}^{(0)} & z_{0,1}^{(0)} \\ z_{0,0}^{(1)} & z_{0,1}^{(1)} \\ z_{0,0}^{(2)} & z_{0,1}^{(2)} \\ z_{0,0}^{(3)} & z_{0,1}^{(3)} \end{bmatrix}}_{Z_0\;(4 \times 2)}
-$$
+```
 
 Applying $\sigma(Z_0)$ fills the first two columns of $A_1$, while column 2 stays `1`.
 
 **Layer 1 $\rightarrow$ Layer 2 ($A_1 \cdot W_1 = Z_1$):**
-$$
+
+```math
 \underbrace{\begin{bmatrix} a_1^{0(0)} & a_1^{1(0)} & 1 \\ a_1^{0(1)} & a_1^{1(1)} & 1 \\ a_1^{0(2)} & a_1^{1(2)} & 1 \\ a_1^{0(3)} & a_1^{1(3)} & 1 \end{bmatrix}}_{A_1\;(4 \times 3)}
 \cdot
 \underbrace{\begin{bmatrix} w_1^{(0,0)} \\ w_1^{(1,0)} \\ b_1^{(2,0)} \end{bmatrix}}_{W_1\;(3 \times 1)}
 =
 \underbrace{\begin{bmatrix} z_{1,0}^{(0)} \\ z_{1,0}^{(1)} \\ z_{1,0}^{(2)} \\ z_{1,0}^{(3)} \end{bmatrix}}_{Z_1\;(4 \times 1)}
-$$
+```
 
 Finally, $A_2 = \sigma(Z_1)$ gives the $4 \times 1$ output predictions $y$.
 
