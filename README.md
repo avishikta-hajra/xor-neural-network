@@ -6,7 +6,7 @@ A zero-dependency, lightweight neural network built from scratch in pure C++ to 
 
 ---
 
-## 1. Why XOR?
+## 1. Why XOR ?
 
 | $x_0$ | $x_1$ | $y$ (XOR) |
 | :---: | :---: | :---: |
@@ -19,28 +19,25 @@ XOR is **not linearly separable**—no single straight line can separate the `1`
 
 ---
 
-## 2. Why Each Component Exists
+## 2. Why Some Components Exist
 
-### Why Do We Need a Bias Neuron (`1`)?
-Without a bias, a neuron computes $z = w_0 x_0 + w_1 x_1$. For input $(0, 0)$, $z$ is always $0$ ($\sigma(0) = 0.5$), no matter how much you train the weights.
+### 2.1 Why Do We Need a Bias Neuron (`1`) ?
+Without a bias, a neuron computes $z = w_0 x_0 + w_1 x_1$. For input $(0, 0)$, $z$ is always $0$ ($\sigma(0) = 0.5$), no matter how much the weights are trained.
 
 * **As a threshold:** Adding a bias ($z = w_0 x_0 + w_1 x_1 + b$) lets the neuron shift its sum up or down so it can cleanly turn ON ($z > 0$) or OFF ($z < 0$).
-* **As a line shift:** At the decision boundary $z = 0$, we get $x_1 = \left(-\frac{w_0}{w_1}\right)x_0 + \left(-\frac{b}{w_1}\right)$. Weights control the **slope**, while bias controls the **y-intercept**. Without bias ($b = 0$), every line is pinned to $(0, 0)$ and can only spin—never slide across the grid.
+* **As a line shift:** At the decision boundary $z = 0$, we get  $x_1 = \left(-\frac{w_0}{w_1}\right)x_0 + \left(-\frac{b}{w_1}\right)$. Weights control the **slope**, while bias controls the **y-intercept**. Without bias ($b = 0$), every line is pinned to $(0, 0)$ and can only spin—never slide across the grid.
 * **Why put `1` in the matrix?** The `1` is just a multiplier. The actual learnable bias values live in the **bottom row** of $W_0$ and $W_1$. During matrix multiplication, $1 \cdot b = b$, so gradient descent learns biases automatically alongside the weights.
 
-### Why Initialize Weights in $[-1, 1]$?
+### 2.2 Why Initialize Weights in $[-1, 1]$ ?
 Sigmoid bounds the **output** to $(0, 1)$, not the input $z = A \cdot W$. Its derivative is $\sigma'(z) = \sigma(z)(1 - \sigma(z))$:
 * Near $z \approx 0$, the slope is steepest ($\sigma'(0) = 0.25$) and learning is fast.
 * For large $|z|$ (e.g., $z = 10$), Sigmoid flattens out ($\sigma'(10) \approx 0.00005$) and learning stalls (**saturation**).
 
 Randomizing weights in $[-1, 1]$ keeps $z$ near $0$, gives both positive and negative weights, and **breaks symmetry** (if all weights started at `0`, every hidden neuron would learn the exact same thing).
 
-### Why Use Sigmoid?
-Stacking linear layers without an activation collapses into a single linear layer: $(A_0 W_0) W_1 = A_0 (W_0 W_1)$, which still cannot solve XOR. Sigmoid:
-
+### 2.3 Why Use Sigmoid?
+Stacking linear layers without an activation collapses into a single linear layer: $(A_0 W_0) W_1 = A_0 (W_0 W_1)$, which still cannot solve XOR. Sigmoid adds smooth **non-linearity** between layers and squashes the final output into $(0, 1)$ to match binary XOR targets.
 $$\sigma(x) = \frac{1}{1 + e^{-x}}$$
-
-adds smooth **non-linearity** between layers and squashes the final output into $(0, 1)$ to match binary XOR targets.
 
 ---
 
