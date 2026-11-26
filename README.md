@@ -47,17 +47,17 @@ Architecture: **$3 \times 3 \times 1$** (2 inputs + 1 bias $\rightarrow$ 2 hidde
 
 ### Scalar Equations (One Sample)
 
-**Hidden Layer:**
-$$z_{0,0} = a_0^0 w_0^{(0,0)} + a_0^1 w_0^{(1,0)} + 1 \cdot b_0^{(2,0)}$$
-$$z_{0,1} = a_0^0 w_0^{(0,1)} + a_0^1 w_0^{(1,1)} + 1 \cdot b_0^{(2,1)}$$
-$$a_1^0 = \sigma(z_{0,0}), \qquad a_1^1 = \sigma(z_{0,1}), \qquad a_1^2 = 1$$
+**Hidden Layer:**<br>
+$z_0^0 = a_0^0 w_0^{(0,0)} + a_0^1 w_0^{(1,0)} + 1 \cdot b_0^{(2,0)}$<br>
+$z_0^1 = a_0^0 w_0^{(0,1)} + a_0^1 w_0^{(1,1)} + 1 \cdot b_0^{(2,1)}$<br>
+$a_1^0 = \sigma(z_0^0), \qquad a_1^1 = \sigma(z_0^1), \qquad a_1^2 = 1$
 
-**Output Layer:**
-$$z_{1,0} = a_1^0 w_1^{(0,0)} + a_1^1 w_1^{(1,0)} + 1 \cdot b_1^{(2,0)}$$
-$$a_2^0 = \sigma(z_{1,0}) = y$$
+**Output Layer:**<br>
+$z_1^0 = a_1^0 w_1^{(0,0)} + a_1^1 w_1^{(1,0)} + 1 \cdot b_1^{(2,0)}$<br>
+$a_2^0 = \sigma(z_1^0) = y$
 
 ### Matrix Proof ($Z = A \cdot W$)
-Stacking all 4 XOR inputs as **rows** in $A_0$ and placing biases in the **last row** of $W_0$ and $W_1$ computes all 4 samples in one multiplication:
+Each **column** represents an input feature (plus the bias term), and each **row** represents a single training sample. Stacking all 4 XOR inputs as rows in $A_0$ and placing the biases in the **last row** of $W_0$ and $W_1$ computes all 4 samples in a single matrix multiplication:
 
 **Layer 0 $\rightarrow$ Layer 1 ($A_0 \cdot W_0 = Z_0$):**
 
@@ -66,10 +66,8 @@ Stacking all 4 XOR inputs as **rows** in $A_0$ and placing biases in the **last 
 \cdot
 \underbrace{\begin{bmatrix} w_0^{(0,0)} & w_0^{(0,1)} \\ w_0^{(1,0)} & w_0^{(1,1)} \\ b_0^{(2,0)} & b_0^{(2,1)} \end{bmatrix}}_{W_0\;(3 \times 2)}
 =
-\underbrace{\begin{bmatrix} z_{0,0}^{(0)} & z_{0,1}^{(0)} \\ z_{0,0}^{(1)} & z_{0,1}^{(1)} \\ z_{0,0}^{(2)} & z_{0,1}^{(2)} \\ z_{0,0}^{(3)} & z_{0,1}^{(3)} \end{bmatrix}}_{Z_0\;(4 \times 2)}
+\underbrace{\begin{bmatrix} z_0^{0(0)} & z_0^{1(0)} \\ z_0^{0(1)} & z_0^{1(1)} \\ z_0^{0(2)} & z_0^{1(2)} \\ z_0^{0(3)} & z_0^{1(3)} \end{bmatrix}}_{Z_0\;(4 \times 2)}
 ```
-
-Applying $\sigma(Z_0)$ fills the first two columns of $A_1$, while column 2 stays `1`.
 
 **Layer 1 $\rightarrow$ Layer 2 ($A_1 \cdot W_1 = Z_1$):**
 
@@ -78,7 +76,7 @@ Applying $\sigma(Z_0)$ fills the first two columns of $A_1$, while column 2 stay
 \cdot
 \underbrace{\begin{bmatrix} w_1^{(0,0)} \\ w_1^{(1,0)} \\ b_1^{(2,0)} \end{bmatrix}}_{W_1\;(3 \times 1)}
 =
-\underbrace{\begin{bmatrix} z_{1,0}^{(0)} \\ z_{1,0}^{(1)} \\ z_{1,0}^{(2)} \\ z_{1,0}^{(3)} \end{bmatrix}}_{Z_1\;(4 \times 1)}
+\underbrace{\begin{bmatrix} z_1^{0(0)} \\ z_1^{0(1)} \\ z_1^{0(2)} \\ z_1^{0(3)} \end{bmatrix}}_{Z_1\;(4 \times 1)}
 ```
 
 Finally, $A_2 = \sigma(Z_1)$ gives the $4 \times 1$ output predictions $y$.
@@ -94,14 +92,14 @@ $$L = \sum_{i=0}^{3} \left(A_2(i, 0) - y_{\text{target}}(i, 0)\right)^2$$
 
 Squaring keeps all errors positive and penalizes larger mistakes more heavily.
 
-### Numerical Gradients (Finite Differences)
+### 4.1 Numerical Gradients (Finite Differences)
 To find how each weight affects the loss without deriving backpropagation yet, we use the definition of a derivative with a tiny step $\epsilon = 10^{-4}$:
 
 $$\frac{\partial L}{\partial w} \approx \frac{L(w + \epsilon) - L(w)}{\epsilon}$$
 
 For each of the 9 parameters ($6$ in $W_0$, $3$ in $W_1$), we nudge the weight by $+\epsilon$, recompute the loss, record the slope in $dW$, and restore the weight. This is slower than backpropagation for large networks, but it is simple, bug-proof, and serves as a **gradient checker** for backpropagation later.
 
-### Gradient Descent
+### 4.2 Gradient Descent
 Each weight moves opposite to its slope to reduce the loss, scaled by learning rate $\alpha = 10^{-2}$:
 
 $$W_0 \leftarrow W_0 - \alpha \, dW_0, \qquad W_1 \leftarrow W_1 - \alpha \, dW_1$$
@@ -117,19 +115,6 @@ $$W_0 \leftarrow W_0 - \alpha \, dW_0, \qquad W_1 \leftarrow W_1 - \alpha \, dW_
 * **Integrated Bias Handling:** Uses a constant `1.0f` bias column padded directly into the activation matrices ($A_0$ and $A_1$), allowing biases to be learned seamlessly as the final row of each weight matrix ($W_0$ and $W_1$).
 * **Bias-Preserving Operations:** `A0` and `A1` are initialized to `1.0f`. Because `matrix_copy` and `matrix_activation` loop only over the source dimensions ($4 \times 2$), they update the data/activation columns while leaving the rightmost bias column permanently at `1.0f`.
 * **Numerical Gradient Verification:** Computes weight gradients element-by-element using finite differences to validate convergence before transitioning to analytical backpropagation.
-
----
-
-## How Training Works (Pre-Backpropagation)
-
-1. **Forward Pass:** Computes $Z_0 = A_0 W_0$, $A_1 = \sigma(Z_0)$ (preserving the bias column), $Z_1 = A_1 W_1$, and $A_2 = \sigma(Z_1)$, where:
-   $$\sigma(x) = \frac{1}{1 + e^{-x}}$$
-2. **Loss Calculation:** Evaluates predictions against XOR targets using Sum of Squared Errors (SSE):
-   $$L = \sum_{i=1}^{N} (A_{2,i} - y_i)^2$$
-3. **Numerical Gradients:** Perturbs each weight in $W_0$ and $W_1$ by $\epsilon = 10^{-4}$ to approximate the partial derivative:
-   $$\frac{\partial L}{\partial w} \approx \frac{L(w + \epsilon) - L(w)}{\epsilon}$$
-4. **Gradient Descent:** Updates all weights simultaneously with learning rate $\alpha = 10^{-2}$:
-   $$w \leftarrow w - \alpha \frac{\partial L}{\partial w}$$
 
 ---
 
