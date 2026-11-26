@@ -109,10 +109,10 @@
   <text x="672" y="319" text-anchor="middle" fill="#fbbf24" font-size="16">b<tspan baseline-shift="sub" font-size="11">1</tspan><tspan baseline-shift="super" font-size="11">(2,0)</tspan></text>
 
   <!-- Pre-activation Labels (z) -->
-  <text x="455" y="116" text-anchor="middle" fill="#38bdf8" font-size="17">z<tspan baseline-shift="sub" font-size="12">0,0</tspan></text>
-  <text x="455" y="236" text-anchor="middle" fill="#38bdf8" font-size="17">z<tspan baseline-shift="sub" font-size="12">0,1</tspan></text>
-  <text x="765" y="174" text-anchor="middle" fill="#38bdf8" font-size="17">z<tspan baseline-shift="sub" font-size="12">1,0</tspan></text>
-
+  <text x="455" y="116" text-anchor="middle" fill="#38bdf8" font-size="17">z<tspan baseline-shift="sub" font-size="12">0</tspan><tspan baseline-shift="super" font-size="11">0</tspan></text>
+  <text x="455" y="236" text-anchor="middle" fill="#38bdf8" font-size="17">z<tspan baseline-shift="sub" font-size="12">0</tspan><tspan baseline-shift="super" font-size="11">1</tspan></text>
+  <text x="765" y="174" text-anchor="middle" fill="#38bdf8" font-size="17">z<tspan baseline-shift="sub" font-size="12">1</tspan><tspan baseline-shift="super" font-size="11">0</tspan></text>
+  
   <!-- Input Layer Nodes (Hand-drawn double-ring chalk style) -->
   <g>
     <!-- a0,0 -->
